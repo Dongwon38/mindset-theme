@@ -15,18 +15,46 @@ get_header();
 		<?php
 		while ( have_posts() ) :
 			the_post();
-
-			get_template_part( 'template-parts/content', 'page' );
+			// get_template_part( 'template-parts/content', 'page' );
 			?>
 
-			<section class="home-intro"></section>
+			<section class="home-intro">
+				<?php the_post_thumbnail( 'large' ); ?>
+			</section>
 			<section class="home-work"></section>
 			<section class="home-work"></section>
 			<section class="home-left"></section>
 			<section class="home-right"></section>
 			<section class="home-slider"></section>
-			<section class="home-blog"></section>
+			<section class="home-blog">
+				<h2><?php esc_html_e( 'Latest Blog Posts', 'fwd' ); ?></h2>
+				<?php
+				$args = array(
+					'post_type' => 'post',
+					'posts_per_page' => 4,
+				);
+				$post_date = get_the_date( 'F n, Y' ); 
+				$blog_query = new WP_Query( $args );
+				if ( $blog_query -> have_posts() ) {
+					while ( $blog_query -> have_posts() ) {
+						$blog_query -> the_post();
+						?>
 
+						<article>
+							<a href="<?php the_permalink(); ?>">
+								<?php echo the_post_thumbnail( '400x200' ); ?>
+								<h3><?php echo the_title(); ?></h3>
+								<p><?php echo $post_date; ?></p>
+							</a>
+						</article>
+						
+						<?php
+					}
+					wp_reset_postdata();
+				}
+				?>
+			</section>
+			
 		<?php 
 		endwhile; // End of the loop.
 		?>

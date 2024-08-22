@@ -46,11 +46,17 @@ function fwd_setup() {
 		*/
 	add_theme_support( 'post-thumbnails' );
 
+	// Our custom Image Crop Sizes
+	add_image_size( 'portrait-blog', 200, 250, true );
+	add_image_size( '400x200', 400, 200, true );
+
+
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus(
 		array(
 			'header' => esc_html__( 'Header Menu Location', 'fwd' ),
 			'footer-left' => esc_html__( 'Footer - Left Side', 'fwd' ),
+			'footer-right' => esc_html__( 'Footer - Right Side', 'fwd' ),
 		)
 	);
 
@@ -139,6 +145,17 @@ function fwd_widgets_init() {
 		array(
 			'name'          => esc_html__( 'Sidebar', 'fwd' ),
 			'id'            => 'sidebar-1',
+			'description'   => esc_html__( 'Add widgets here.', 'fwd' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		)
+	);
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Sidebar-secondary', 'fwd' ),
+			'id'            => 'sidebar-2',
 			'description'   => esc_html__( 'Add widgets here.', 'fwd' ),
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</section>',

@@ -202,3 +202,38 @@ require get_template_directory() . '/inc/customizer.php';
 if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
+
+//  Add theme color Meta Tag
+
+function fwd_theme_color() {
+	echo '<meta name="theme-color" content="$fff200">';
+}
+
+add_action( 'wp_head', 'fwd_theme_color', 1 );
+
+// Change Excerpt Length to 20 words
+function fwd_excerpt_length( $length ) {
+	return 20;
+}
+
+add_filter( 'excerpt_length', 'fwd_excerpt_length', 999 );
+
+// Change Excerpt more
+function fwd_excerpt_more( $more ) {
+	$more = '... <a class="read-more" href="'.esc_url(get_permalink()).'">' . __('Continue Reading', 'fwd') . '</a>';
+	return $more;
+}
+add_filter( 'excerpt_more', 'fwd_excerpt_more', 999);
+
+// Use this to switch from Block editor to Classic editor
+
+function fwd_post_filter( $use_block_editor, $post ) {
+    // Add IDs to the array
+    $page_ids = array( 79, 12 );
+    if ( in_array( $post->ID, $page_ids ) ) {
+        return false;
+    } else {
+        return $use_block_editor;
+    }
+}
+add_filter( 'use_block_editor_for_post', 'fwd_post_filter', 10, 2 );

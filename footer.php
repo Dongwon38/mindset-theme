@@ -17,20 +17,29 @@
 		</div><!-- .footer-contact -->
 		<div class="footer-menus">
 				<nav class="footer-navigation">
+					
+					<?php 
+					if (!is_page(6)) {
+						echo "<p>";
+						the_field('address_field', 6); 
+						echo "</p>";
+					}
+					?>
 					<?php wp_nav_menu( array( 'theme_location' => 'footer-left' )); ?>
 				</nav>
 				<nav class="footer-navigation">
-					<?php wp_nav_menu( array( 'theme_location' => 'footer-right' )); ?>
+				<?php 
+					if (!is_page(6)) {
+						echo "<p>";
+						the_field('email_field', 6); 
+						echo "</p>";
+					}
+					?>
+				<?php wp_nav_menu( array( 'theme_location' => 'footer-right' )); ?>
 				</nav>
 		</div><!-- .footer-menus -->
 		<div class="site-info">
-			<?php
-				if(function_exists('get_privacy_policy_url')):
-			?>
-<p>
-<a href="<?php echo esc_attr( esc_url( get_privacy_policy_url() ) ); ?>"><?php esc_html_e( 'Privacy Policy', 'fwd' ) ?></a>
-		</p>
-			<?php endif;?>
+			<p><?php the_privacy_policy_link(); ?></p>
 			<?php esc_html_e( 'Created by ', 'fwd' ); ?><a href="<?php echo esc_url( __( 'https://wp.bcitwebdeveloper.ca/', 'fwd' ) ); ?>"><?php esc_html_e( 'Jonathon Leathers', 'fwd' ); ?></a>
 		</div><!-- .site-info -->
 	</footer><!-- #colophon -->

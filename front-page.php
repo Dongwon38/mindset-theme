@@ -20,11 +20,50 @@ get_header();
 
 			<section class="home-intro">
 				<?php the_post_thumbnail( 'large' ); ?>
+				<?php 
+			if (function_exists( 'get_field')) {
+				if (get_field('top_section')) {
+					the_field('top_section');
+				}
+			}
+			?>
 			</section>
 			<section class="home-work"></section>
 			<section class="home-work"></section>
-			<section class="home-left"></section>
-			<section class="home-right"></section>
+			<section class="home-left">
+				<?php 
+				if(function_exists('get_field')) {
+					if(get_field('left_section_heading')) {
+						echo '<h2>';
+						the_field('left_section_heading');
+						echo '</h2>';						
+					}
+					
+					if(get_field('left_section_content')) {
+						echo '<p>';
+						the_field('left_section_content');
+						echo '</p>';
+					}
+				}
+				?>
+			</section>
+			<section class="home-right">
+				<?php 	
+					if(function_exists('get_field')) {
+						if(get_field('right_section_heading')) {
+							echo '<h2>';
+							the_field('right_section_heading');
+							echo '</h2>';						
+						}
+						
+						if(get_field('right_section_content')) {
+							echo '<p>';
+							the_field('right_section_content');
+							echo '</p>';
+						}
+					}
+				?>
+			</section>
 			<section class="home-slider"></section>
 			<section class="home-blog">
 				<h2><?php esc_html_e( 'Latest Blog Posts', 'fwd' ); ?></h2>
@@ -33,18 +72,18 @@ get_header();
 					'post_type' => 'post',
 					'posts_per_page' => 4,
 				);
-				$post_date = get_the_date( 'F n, Y' ); 
 				$blog_query = new WP_Query( $args );
 				if ( $blog_query -> have_posts() ) {
 					while ( $blog_query -> have_posts() ) {
 						$blog_query -> the_post();
+						
 						?>
 
 						<article>
 							<a href="<?php the_permalink(); ?>">
 								<?php echo the_post_thumbnail( '400x200' ); ?>
 								<h3><?php echo the_title(); ?></h3>
-								<p><?php echo $post_date; ?></p>
+								<time datetime="<?php echo get_the_date('c'); ?>" itemprop="datePublished"><?php echo esc_html (get_the_date()); ?></time>
 							</a>
 						</article>
 						

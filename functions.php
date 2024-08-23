@@ -182,6 +182,11 @@ function fwd_scripts() {
 add_action( 'wp_enqueue_scripts', 'fwd_scripts' );
 
 /**
+ * Custom Post Types & Taxonomies.
+ */
+require get_template_directory() . '/inc/cpt-taxonomy.php';
+
+/**
  * Custom template tags for this theme.
  */
 require get_template_directory() . '/inc/template-tags.php';
@@ -237,3 +242,5 @@ function fwd_post_filter( $use_block_editor, $post ) {
     }
 }
 add_filter( 'use_block_editor_for_post', 'fwd_post_filter', 10, 2 );
+
+

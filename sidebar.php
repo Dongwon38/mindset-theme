@@ -6,10 +6,6 @@
  *
  * @package FWD_Starter_Theme
  */
-
-if ( ! is_active_sidebar( 'sidebar-1' ) || ! is_active_sidebar( 'sidebar-2' ) ) {
-	return;
-}
 ?>
 
 <aside id="secondary" class="widget-area">
@@ -19,5 +15,11 @@ if ( ! is_active_sidebar( 'sidebar-1' ) || ! is_active_sidebar( 'sidebar-2' ) ) 
 	} else {
 		dynamic_sidebar( 'sidebar-1' ); 
 	}
-		?>
+	?>
+	
+	<?php 
+	//Displays work categories as a clickable link
+	get_template_part('template-parts/work-categories'); 
+	?>
+
 </aside><!-- #secondary -->

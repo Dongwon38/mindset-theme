@@ -21,13 +21,16 @@ get_header();
 		while ( have_posts() ) :
 			the_post();
 
+			// 아티클이 들어가는 자리
+
+
 			get_template_part( 'template-parts/content', 'page' );
 
 			$args = array ( 
-				'orderby'		=> 'title',
-				'order'		=> 'ASC',
 				'post_type'		 => 'fwd-service',
-				'posts_per_page' => -1
+				'posts_per_page' => -1,
+				'order'		=> 'ASC',
+				'orderby'		=> 'title',
 			);
 			$query = new WP_Query( $args );
 			if ($query -> have_posts()) {
@@ -44,11 +47,11 @@ get_header();
 			if ($query -> have_posts()) {
 				while ($query -> have_posts()) {
 					$query -> the_post();
-					echo "<h3 id=".get_the_ID().">";
+					echo '<h3 id='.esc_attr(get_the_ID()).'>';
 					the_title();
 					echo "</h3>";
 					echo "<p>";
-					the_content();
+					esc_html(the_content());
 					echo "</p>";
 				}
 				wp_reset_postdata();

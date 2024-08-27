@@ -20,6 +20,7 @@
 	<?php 
 	//Displays work categories as a clickable link
 	get_template_part('template-parts/work-categories'); 
+	get_template_part( 'template-parts/testimonial', 'random' );
 	?>
 
 </aside><!-- #secondary -->

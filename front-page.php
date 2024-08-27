@@ -15,19 +15,20 @@ get_header();
 		<?php
 		while ( have_posts() ) :
 			the_post();
-			// get_template_part( 'template-parts/content', 'page' );
 			?>
 
 			<section class="home-intro">
+				<h1><?php the_title(); ?></h1>
 				<?php the_post_thumbnail( 'large' ); ?>
 				<?php 
-			if (function_exists( 'get_field')) {
-				if (get_field('top_section')) {
-					the_field('top_section');
+				if (function_exists( 'get_field')) {
+					if (get_field('top_section')) {
+						the_field('top_section');
+					}
 				}
-			}
-			?>
+				?>
 			</section>
+
 			<section class="home-work">
 				<h2><?php esc_html_e( 'Featured Works', 'fwd' ); ?></h2>
 			<?php
@@ -61,7 +62,9 @@ get_header();
 			?>
 
 			</section>
+
 			<section class="home-work"></section>
+
 			<section class="home-left">
 				<?php 
 				if(function_exists('get_field')) {
@@ -79,6 +82,7 @@ get_header();
 				}
 				?>
 			</section>
+
 			<section class="home-right">
 				<?php 	
 					if(function_exists('get_field')) {
@@ -96,7 +100,37 @@ get_header();
 					}
 				?>
 			</section>
-			<section class="home-slider"></section>
+
+			<section class="home-slider">
+				<?php 
+				$args = array (
+					'post_type' => 'fwd-testimonial',
+					'posts_per_page' => -1
+				);
+				$query = new WP_Query($args);
+				if ($query -> have_posts()) : ?>
+					<div class="swiper">
+						<div class="swiper-wrapper">
+							<?php while( $query -> have_posts()) :
+								$query -> the_post(); ?>
+								<div class="swiper-slide">
+									<?php the_content(); ?>
+								</div>
+							<?php
+							endwhile;
+							wp_reset_postdata(); 
+							?>
+						</div>
+						<!-- If we need pagination -->
+						<div class="swiper-pagination"></div>
+
+						<!-- If we need navigation buttons -->
+						<button class="swiper-button-prev"></button>
+						<button class="swiper-button-next"></button>
+					</div>
+				<?php endif ?>
+			</section>
+
 			<section class="home-blog">
 				<h2><?php esc_html_e( 'Latest Blog Posts', 'fwd' ); ?></h2>
 				<?php
@@ -126,12 +160,11 @@ get_header();
 				?>
 			</section>
 			
-		<?php 
+			<?php 
 		endwhile; // End of the loop.
 		?>
 
 	</main><!-- #primary -->
 
 <?php 
-get_sidebar();
 get_footer();

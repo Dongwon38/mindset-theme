@@ -21,6 +21,7 @@
 					<?php 
 					if (!is_page(6)) {
 						echo "<p>";
+						get_template_part( 'images/location' );
 						the_field('address_field', 6); 
 						echo "</p>";
 					}
@@ -35,7 +36,8 @@
 						echo "</p>";
 					}
 					?>
-				<?php wp_nav_menu( array( 'theme_location' => 'footer-right' )); ?>
+				<a href="instagram.com"><?php get_template_part( 'images/instagram' ); ?></a> 
+				<a href="facebook.com"><?php get_template_part( 'images/facebook' ); ?></a> 
 				</nav>
 		</div><!-- .footer-menus -->
 		<div class="site-info">

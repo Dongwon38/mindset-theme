@@ -89,7 +89,8 @@ get_header();
 			</section>
 
 
-			<section class="home-left">
+			<section class="home-description">
+				<article class="home-left">
 				<?php 
 				if(function_exists('get_field')) {
 					if(get_field('left_section_heading')) {
@@ -105,9 +106,8 @@ get_header();
 					}
 				}
 				?>
-			</section>
-
-			<section class="home-right">
+				</article>
+				<article class="home-right">
 				<?php 	
 					if(function_exists('get_field')) {
 						if(get_field('right_section_heading')) {
@@ -123,6 +123,7 @@ get_header();
 						}
 					}
 				?>
+				</article>
 			</section>
 
 			<section class="home-slider">
@@ -133,6 +134,7 @@ get_header();
 				);
 				$query = new WP_Query($args);
 				if ($query -> have_posts()) : ?>
+					<h2>Testimonials</h2>
 					<div class="swiper">
 						<div class="swiper-wrapper">
 							<?php while( $query -> have_posts()) :

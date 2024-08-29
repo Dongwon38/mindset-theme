@@ -16,19 +16,23 @@
 			
 		</div><!-- .footer-contact -->
 		<div class="footer-menus">
-				<nav class="footer-navigation">
-					
+				<nav class="footer-nav-left">
 					<?php 
 					if (!is_page(6)) {
+						
+						echo "<div class='footer-address'>";
 						echo "<p>";
 						get_template_part( 'images/location' );
+						echo "</p>";
+						echo "<p>";
 						the_field('address_field', 6); 
 						echo "</p>";
+						echo "</div>";
 					}
 					?>
 					<?php wp_nav_menu( array( 'theme_location' => 'footer-left' )); ?>
 				</nav>
-				<nav class="footer-navigation">
+				<nav class="footer-nav-right">
 				<?php 
 					if (!is_page(6)) {
 						echo "<p>";
@@ -36,8 +40,10 @@
 						echo "</p>";
 					}
 					?>
-				<a href="instagram.com"><?php get_template_part( 'images/instagram' ); ?></a> 
-				<a href="facebook.com"><?php get_template_part( 'images/facebook' ); ?></a> 
+				<div class="footer-social-link">
+					<a href="instagram.com"><?php get_template_part( 'images/instagram' ); ?></a> 
+					<a href="facebook.com"><?php get_template_part( 'images/facebook' ); ?></a> 
+				</div>
 				</nav>
 		</div><!-- .footer-menus -->
 		<div class="site-info">

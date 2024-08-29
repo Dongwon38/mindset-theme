@@ -29,6 +29,7 @@ get_header();
 			);
 			$query = new WP_Query ( $args);
 			if ($query -> have_posts()) {
+				echo "<h2>Testimonials</h2>";
 				while ($query -> have_posts()) {
 					$query -> the_post();
 					the_content();

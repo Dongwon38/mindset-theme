@@ -35,3 +35,14 @@ function fwd_pingback_header() {
 	}
 }
 add_action( 'wp_head', 'fwd_pingback_header' );
+
+// Remove Archive Title Prefix
+function fwd_archive_title_prefix( $prefix ){
+    if ( get_post_type() === 'fwd-work' || 'job-posting' ) {
+        return false;
+    } else {
+        return $prefix;
+    }
+}
+add_filter( 'get_the_archive_title_prefix', 'fwd_archive_title_prefix' );
+

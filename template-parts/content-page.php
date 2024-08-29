@@ -20,25 +20,6 @@
 		<?php
 		the_content();
 
-		if(function_exists('get_field')) {
-			if(get_field('address_field')) {
-				echo '<p>';
-				the_field('address_field');
-				echo '</p>';						
-			}
-			
-			if(get_field('email_field')) {
-				echo '<p>';
-				the_field('email_field');
-				echo '</p>';
-			}
-
-			// $email = get_field('email_field');
-			// $mailto = 'mailto: $email';
-			// <a href = echo esc_url ($mailto)> esc_html($email)
-
-
-		}
 		wp_link_pages(
 			array(
 				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'fwd' ),

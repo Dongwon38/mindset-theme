@@ -31,6 +31,7 @@ get_header();
 
 			<section class="home-work">
 				<h2><?php esc_html_e( 'Featured Works', 'fwd' ); ?></h2>
+				<div class="featured-works-container">
 			<?php
 			$args = array(
 				'post_type' 	 => 'fwd-work',
@@ -48,22 +49,45 @@ get_header();
 				while ( $query -> have_posts() ) {
 					$query -> the_post();
 					?>
-					<!-- contents here -->
-					<article>
+					<article class="front-portfolio">
 						<a href="<?php the_permalink(); ?>">
 							<?php the_post_thumbnail( 'medium' ); ?>							
 							<h3><?php the_title(); ?></h3>
 						</a>
 					</article>
 					<?php
-				};
+					wp_reset_postdata();
+					}
+				}
+				?>
+					</div>
+				<h2><?php esc_html_e( 'Featured Works with Relationship field', 'fwd' ); ?></h2>
+				<div class="featured-works-rel-container">
+				<?php
+				if (function_exists('get_field')) :
+						$featured_works = get_field('featured_works');
+						if($featured_works) : 
+							foreach($featured_works as $post) :
+								setup_postdata($post);
+					?>
+					<!-- contents here -->
+					<article class="front-portfolio">
+						<a href="<?php the_permalink(); ?>">
+							<?php the_post_thumbnail( 'medium' ); ?>							
+							<h3><?php the_title(); ?></h3>
+						</a>
+					</article>
+
+					<?php
+					endforeach; ?>
+												</div> <?php
 				wp_reset_postdata();
-			};
+				endif;
+		endif;
 			?>
 
 			</section>
 
-			<section class="home-work"></section>
 
 			<section class="home-left">
 				<?php 
@@ -140,11 +164,11 @@ get_header();
 				);
 				$blog_query = new WP_Query( $args );
 				if ( $blog_query -> have_posts() ) {
+					echo "<div class='blog-wrapper'>";
+					
 					while ( $blog_query -> have_posts() ) {
 						$blog_query -> the_post();
-						
 						?>
-
 						<article>
 							<a href="<?php the_permalink(); ?>">
 								<?php echo the_post_thumbnail( '400x200' ); ?>
@@ -152,10 +176,10 @@ get_header();
 								<time datetime="<?php echo get_the_date('c'); ?>" itemprop="datePublished"><?php echo esc_html (get_the_date()); ?></time>
 							</a>
 						</article>
-						
 						<?php
 					}
 					wp_reset_postdata();
+					echo "</div>";
 				}
 				?>
 			</section>

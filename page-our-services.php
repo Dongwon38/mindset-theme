@@ -19,95 +19,95 @@ get_header();
 
 		<?php
 		while ( have_posts() ) :
-			the_post();
+			the_post();?>
 
-			// article id post php the id(); php post_class()
+			<!-- post start  -->
+			<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+				<!-- title -->
+				<header class="entry-header">
+					<?php the_title( '<h1 class="entry-title">', '</h1>'); ?>
+				</header>
 
-			// header class entry-header, php the title h1 class entry0itle h1 header
 
-			//  div class entry-content 
-			//  php the content
-			// nav
-			// type 1
-			// type 2
-			//
-			// </div>
-			// </article>
-			get_template_part( 'template-parts/content', 'page' );
-			
+				<!-- entry content start -->
+				<div class="entry-content">
+					<?php the_content(); ?>
 
-			// Navigation
-			$args = array(
-				'post_type'      => 'fwd-service',
-				'posts_per_page' => -1,
-				'order'          => 'ASC',
-				'orderby'        => 'title'
-			);
-			
-			$query = new WP_Query( $args );
-			
-			if ( $query -> have_posts() ) {
-				echo '<nav>';
-				while ( $query -> have_posts() ) {
-					$query -> the_post();
-					echo '<a href="#'. esc_attr( get_the_ID() ) .'">'. esc_html( get_the_title() ) .'</a>';
-				}
-				wp_reset_postdata();
-				echo '</nav>';
-			}
-
-			$taxonomy = 'fwd-service-type';
-			$terms = get_terms (
-				array (
-					'taxonomy' => $taxonomy
-				)
-				);
-			if ($terms && ! is_wp_error($terms)) {
-				foreach($terms as $term) {
+					<!-- Navigation -->
+					 <?php
 					$args = array(
-						'post_type'	=> 'fwd-service',
+						'post_type'      => 'fwd-service',
 						'posts_per_page' => -1,
-						'order' => 'ASC',
-						'orderby' => 'title',
-						'tax_query' => array (
-							array (
-								'taxonomy' => $taxonomy,
-								'field' => 'slug',
-								'terms' => $term ->slug,
-							)
-							),
+						'order'          => 'ASC',
+						'orderby'        => 'title'
 					);
+			
+					$query = new WP_Query( $args );
+					
+					if ( $query -> have_posts() ) {
+						echo '<nav>';
+						while ( $query -> have_posts() ) {
+							$query -> the_post();
+							echo '<a href="#'. esc_attr( get_the_ID() ) .'">'. esc_html( get_the_title() ) .'</a>';
+						}
+						wp_reset_postdata();
+						echo '</nav>';
+					}
+
+					// Taxonomy
+					$taxonomy = 'fwd-service-type';
+					$terms = get_terms (
+						array (
+							'taxonomy' => $taxonomy
+						)
+						);
 
 					
+					if ($terms && ! is_wp_error($terms)) {
+						foreach($terms as $term) {
+							$args = array(
+								'post_type'	=> 'fwd-service',
+								'posts_per_page' => -1,
+								'order' => 'ASC',
+								'orderby' => 'title',
+								'tax_query' => array (
+									array (
+										'taxonomy' => $taxonomy,  
+										'field' => 'slug',
+										'terms' => $term ->slug,
+									)
+									),
+							);
+
 					$query = new WP_Query ($args);
+
 					if ($query -> have_posts()) {
 						echo '<h2>' . esc_html( $term -> name ) . '</h2>';
 
 						// Output Content
 						while ( $query -> have_posts()) {
+
 							$query -> the_post();
 
-							echo '<h3 id='.esc_attr(get_the_ID()).'>';
-							the_title();
-							echo "</h3>";
-							echo "<p>";
-							esc_html(the_content());
-							echo "</p>";
-		
-							// if (function_exists('get_field')) {
-							// 	if (get_field('service_text')) {
-							// 		echo '<h3 id="'. esc_attr(get_the_ID()) . '">' . esc_html(get_the_title()) . '</h3>';
-							// 		the_field( 'service_text' );
-							// 	}
-							// }
+							if ( function_exists( 'get_field' ) ) {
+								if ( get_field( 'service_text' ) ) {
+									echo '<h2>'. esc_html( get_the_title() ) .'</h2>';
+									the_field( 'service_text' );
+								}
+							}
 						}
 					}
-				wp_reset_postdata();					
+					wp_reset_postdata();					
+					}
 				}
-			}
+				?>
+				</div>
 
+				</article>
 
-
+			<?php
+			get_template_part( 'template-parts/content', 'page' );
+			
 		endwhile; // End of the loop.
 		?>
 

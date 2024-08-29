@@ -36,6 +36,7 @@ get_header();
 			$query = new WP_Query ( $args );
 			if ( $query -> have_posts() ){
 				echo '<section><h2>Web</h2>';
+				echo '<div class="works-wrapper web">';
 				while ( $query -> have_posts() ) {
 					$query -> the_post();
 					?>
@@ -43,6 +44,7 @@ get_header();
 					<article>
 						<a href="<?php the_permalink(); ?>">
 							<h2><?php the_title(); ?></h2>
+
 							<?php the_post_thumbnail( 'large' ); ?>
 							
 						</a>
@@ -51,6 +53,7 @@ get_header();
 					<?php
 				};
 				wp_reset_postdata();
+				echo '</div>';
 				echo '</section>';
 			};
 			?>
@@ -69,6 +72,7 @@ get_header();
 			$query = new WP_Query ( $args );
 			if ( $query -> have_posts() ){
 				echo '<section><h2>Photo</h2>';
+				echo '<div class="works-wrapper web">';
 				while ( $query -> have_posts() ) {
 					$query -> the_post();
 					?>
@@ -84,6 +88,7 @@ get_header();
 					<?php
 				};
 				wp_reset_postdata();
+				echo '</div>';
 				echo '</section>';
 			};
 			?>

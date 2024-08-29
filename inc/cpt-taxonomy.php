@@ -91,23 +91,24 @@ function fwd_register_custom_post_types() {
 
 
     // Register Services Post Type
+	
     $labels = array(
-        'name'               => _x( 'Services', 'post type general name'  ),
-        'singular_name'      => _x( 'Service', 'post type singular name'  ),
-        'menu_name'          => _x( 'Services', 'admin menu'  ),
-        'name_admin_bar'     => _x( 'Services', 'add new on admin bar' ),
-        'add_new'            => _x( 'Add New', 'Services' ),
-        'add_new_item'       => __( 'Add New Services' ),
-        'new_item'           => __( 'New Services' ),
-        'edit_item'          => __( 'Edit Services' ),
-        'view_item'          => __( 'View Services'  ),
-        'all_items'          => __( 'All Services' ),
+        'name'               => _x( 'Services', 'post type general name' ),
+        'singular_name'      => _x( 'Service', 'post type singular name' ),
+        'menu_name'          => _x( 'Services', 'admin menu' ),
+        'name_admin_bar'     => _x( 'Service', 'add new on admin bar' ),
+        'add_new'            => _x( 'Add New', 'service'  ),
+        'add_new_item'       => __( 'Add New Service'  ),
+        'new_item'           => __( 'New Service' ),
+        'edit_item'          => __( 'Edit Service' ),
+        'view_item'          => __( 'View Service' ),
+        'all_items'          => __( 'All Services'  ),
         'search_items'       => __( 'Search Services' ),
         'parent_item_colon'  => __( 'Parent Services:' ),
-        'not_found'          => __( 'No Services found.' ),
-        'not_found_in_trash' => __( 'No Services found in Trash.' ),
+        'not_found'          => __( 'No services found.' ),
+        'not_found_in_trash' => __( 'No services found in Trash.' ),
     );
-
+     
     $args = array(
         'labels'             => $labels,
         'public'             => true,
@@ -116,17 +117,63 @@ function fwd_register_custom_post_types() {
         'show_in_menu'       => true,
         'show_in_rest'       => true,
         'query_var'          => true,
-        'rewrite'            => array( 'slug' => 'services' ),
+        'rewrite'            => array( 'slug' => 'services'),
         'capability_type'    => 'post',
         'has_archive'        => false,
         'hierarchical'       => false,
-        'menu_position'      => 7,
+        'menu_position'      => 6,
         'menu_icon'          => 'dashicons-businessperson',
-        'supports'           => array( 'title' ),
+        'supports'           => array( 'title' )
     );
-
+     
     register_post_type( 'fwd-service', $args );
 
+    // Register Job Postings
+    $labels = array(
+        'name'                  => _x( 'Job Postings', 'post type general name' ),
+        'singular_name'         => _x( 'Job Posting', 'post type singular name' ),
+        'menu_name'             => _x( 'Job Postings', 'admin menu' ),
+        'name_admin_bar'        => _x( 'Job Posting', 'add new on admin bar' ),
+        'add_new'               => _x( 'Add New', 'service'  ),
+        'add_new_item'          => __( 'Add New Job Posting'  ),
+        'new_item'              => __( 'New Job Posting' ),
+        'edit_item'             => __( 'Edit Job Posting' ),
+        'view_item'             => __( 'View Job Posting' ),
+        'all_items'             => __( 'All Job Postings'  ),
+        'search_items'          => __( 'Search Job Postings' ),
+        'parent_item_colon'     => __( 'Parent Job Postings:' ),
+        'not_found'             => __( 'No Job Postings found.' ),
+        'not_found_in_trash'    => __( 'No Job Postings found in Trash.' ),
+        'insert_into_item'      => __( 'Insert into Job Posting'),
+        'uploaded_to_this_item' => __( 'Uploaded to this Job Posting'),
+    );
+    $args = array(
+        'labels'             => $labels,
+        'public'             => true,
+        'publicly_queryable' => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'show_in_rest'       => true,
+        'query_var'          => true,
+        'rewrite'            => array( 'slug' => 'careers' ),
+        'capability_type'    => 'post',
+        'has_archive'        => true,
+        'hierarchical'       => false,
+        'menu_position'      => 21,
+        'menu_icon'          => 'dashicons-megaphone',
+        'supports'           => array( 'title', 'editor' ),
+        'template'           => array(
+            array( 'core/heading', array( 'level' => 3, 'content' => 'Role', ) ),
+            array( 'core/paragraph', array( 'placeholder' => 'Describe the role...' ) ),
+            array( 'core/heading', array( 'level' => 3, 'content' => 'Requirements' ) ),
+            array( 'core/list' ),
+            array( 'core/heading', array( 'level' => 3, 'content' => 'Location' ) ),
+            array( 'core/paragraph' ),
+            array( 'core/heading', array( 'level' => 3, 'content' => 'How to Apply' ) ),
+            array( 'core/paragraph' ),
+        )
+    );
+    register_post_type( 'fwd-job-posting', $args );
 
 
 }
@@ -194,14 +241,13 @@ function fwd_register_taxonomies() {
         'name'              => _x( 'Service Type', 'taxonomy general name' ),
         'singular_name'     => _x( 'Service Type', 'taxonomy singular name' ),
         'search_items'      => __( 'Search Service Type' ),
-        'all_items'         => __( 'All Service Type' ),
-        'parent_item'       => __( 'Parent Service Type' ),
-        'parent_item_colon' => __( 'Parent Service Type:' ),
+        'all_items'         => __( 'All Service Types' ),
+        'parent_item'       => __( 'Service Type Featured' ),
+        'parent_item_colon' => __( 'Service Type Featured:' ),
         'edit_item'         => __( 'Edit Service Type' ),
-        'view_item'         => __( 'Vview Service Type' ),
         'update_item'       => __( 'Update Service Type' ),
         'add_new_item'      => __( 'Add New Service Type' ),
-        'new_item_name'     => __( 'New Service Type Name' ),
+        'new_item_name'     => __( 'New Work Service Type' ),
         'menu_name'         => __( 'Service Type' ),
     );
     $args = array(

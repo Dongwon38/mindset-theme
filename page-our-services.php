@@ -48,7 +48,7 @@ get_header();
 						echo '<nav>';
 						while ( $query -> have_posts() ) {
 							$query -> the_post();
-							echo '<a href="#'. esc_attr( get_the_ID() ) .'">'. esc_html( get_the_title() ) .'</a>';
+							echo '<a href="#post-'. esc_attr( get_the_ID() ) .'">'. esc_html( get_the_title() ) .'</a>';
 						}
 						wp_reset_postdata();
 						echo '</nav>';
@@ -91,7 +91,7 @@ get_header();
 
 							if ( function_exists( 'get_field' ) ) {
 								if ( get_field( 'service_text' ) ) {
-									echo '<h2>'. esc_html( get_the_title() ) .'</h2>';
+									echo '<h2 id="post-' . get_the_ID() . '">'. esc_html( get_the_title() ) .'</h2>';
 									the_field( 'service_text' );
 								}
 							}
